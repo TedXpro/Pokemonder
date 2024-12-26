@@ -3,16 +3,15 @@ using pokemonder.Models;
 public class PokemonService : IPokemonService
 {
     private static int _nextId = 6;
-    static private List<Pokemon> PokemonList = new List<Pokemon>(){
-            new Pokemon
-            {
+    private static List<Pokemon> PokemonList = [
+            new() {
                 ID = "0001",
                 Name = "Bulbasaur",
                 Ability = "Overgrow",
                 Type = "Grass/Poison",
                 Level = "5"
             },
-            new Pokemon
+            new ()
             {
                 ID = "0002",
                 Name = "Charmander",
@@ -20,7 +19,7 @@ public class PokemonService : IPokemonService
                 Type = "Fire",
                 Level = "5"
             },
-            new Pokemon
+            new ()
             {
                 ID = "0003",
                 Name = "Squirtle",
@@ -28,7 +27,7 @@ public class PokemonService : IPokemonService
                 Type = "Water",
                 Level = "5"
             },
-            new Pokemon
+            new ()
             {
                 ID = "0004",
                 Name = "Pikachu",
@@ -36,7 +35,7 @@ public class PokemonService : IPokemonService
                 Type = "Electric",
                 Level = "7"
             },
-              new Pokemon
+              new ()
             {
                 ID = "0005",
                 Name = "Eevee",
@@ -44,7 +43,7 @@ public class PokemonService : IPokemonService
                 Type = "Normal",
                 Level = "10"
             }
-        };
+        ];
 
     public List<Pokemon> GetPokemons()
     {
@@ -53,7 +52,7 @@ public class PokemonService : IPokemonService
 
     public Pokemon GetPokemon(string id)
     {
-        return PokemonList.FirstOrDefault(pokemon => pokemon.ID == id);
+        return PokemonList.FirstOrDefault(pokemon => pokemon.ID == id)!;
     }
 
     public Pokemon AddPokemon(Pokemon newPokemon)
@@ -73,7 +72,7 @@ public class PokemonService : IPokemonService
             pokemon.Type = updatedPokemon.Type;
             pokemon.Level = updatedPokemon.Level;
         }
-        return pokemon;
+        return pokemon!;
     }
 
     public bool DeletePokemon(string id)
@@ -89,6 +88,6 @@ public class PokemonService : IPokemonService
 
     public Pokemon GetPokemonByName(string name)
     {
-        return PokemonList.FirstOrDefault(pokemon => pokemon.Name == name);
+        return PokemonList.FirstOrDefault(pokemon => pokemon.Name == name)!;
     }
 }
