@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 using pokemonder.Models;
 
 namespace pokemonder.Controllers
@@ -13,48 +12,50 @@ namespace pokemonder.Controllers
         {
             _pokemonService = pokemonService;
         }
-        private static int _nextId = 6;
-
+        
         [HttpGet]
-        public List<Pokemon> Get()
+        public ActionResult Get()
         {
-            return _pokemonService.GetPokemons();
+            return Ok(_pokemonService.GetPokemons());
         }
 
         [HttpGet("{id}")]
         public ActionResult GetPokemon(string id)
         {
-            try {
+            try
+            {
                 return Ok(_pokemonService.GetPokemon(id));
-            } catch (Exception e) {
+            }
+            catch (Exception)
+            {
                 return NotFound("Pokemon Not Found");
             }
-            
+
         }
 
         [HttpPost]
-        public Pokemon AddPokemon(Pokemon newPokemon)
+        public ActionResult AddPokemon(Pokemon newPokemon)
         {
             newPokemon = _pokemonService.AddPokemon(newPokemon);
-            return newPokemon;
+            return Ok(newPokemon);
         }
 
         [HttpPut("{id}")]
-        public Pokemon UpdatePokemon(string id, Pokemon updatedPokemon)
+        public ActionResult UpdatePokemon(string id, Pokemon updatedPokemon)
         {
-            return _pokemonService.UpdatePokemon(id, updatedPokemon);
+            return Ok(_pokemonService.UpdatePokemon(id, updatedPokemon));
         }
 
         [HttpDelete("{id}")]
-        public bool DeletePokemon(string id)
+        public ActionResult DeletePokemon(string id)
         {
-            return _pokemonService.DeletePokemon(id);
+            return Ok(_pokemonService.DeletePokemon(id));
         }
 
         [HttpGet("search/{name}")]
-        public Pokemon GetPokemonByName(string name)
+        public ActionResult GetPokemonByName(string name)
         {
-            return _pokemonService.GetPokemonByName(name);
+            return Ok(_pokemonService.GetPokemonByName(name));
         }
     }
 }
