@@ -1,8 +1,14 @@
+using MongoDB.Driver;
 using pokemonder.Models;
 
 public class PokemonService : IPokemonService
 {
-    private static int _nextId = 6;
+    private readonly IMongoCollection<Pokemon> _pokemonCpollection;
+    public PokemonService(IConfiguration configuration){
+        var client = new MongoClient(configuration["MongoDbSettings:ConnectionString"]);
+        var database = client.GetDatabase(configuration["MongoDbSettings:DatabaseName"]);
+        _pokemonCpollection = database.GetCollection<Pokemon>(configuration["MongoDbSettings:CollectionName"]);
+    }
     private static List<Pokemon> PokemonList = [
             new() {
                 ID = "0001",
@@ -47,47 +53,33 @@ public class PokemonService : IPokemonService
 
     public List<Pokemon> GetPokemons()
     {
-        return PokemonList;
+        return _pokemonCpollection.Find(_ => true).ToList();
     }
 
     public Pokemon GetPokemon(string id)
     {
-        return PokemonList.FirstOrDefault(pokemon => pokemon.ID == id)!;
+        return _pokemonCpollection.Find(pokemon => pokemon.ID == id).FirstOrDefault();
     }
 
     public Pokemon AddPokemon(Pokemon newPokemon)
     {
-        newPokemon.ID = _nextId.ToString("0000");
-        PokemonList.Add(newPokemon);
+        _pokemonCpollection.InsertOne(newPokemon);
         return newPokemon;
     }
 
     public Pokemon UpdatePokemon(string id, Pokemon updatedPokemon)
     {
-        var pokemon = PokemonList.FirstOrDefault(pokemon => pokemon.ID == id);
-        if (pokemon != null)
-        {
-            pokemon.Name = updatedPokemon.Name;
-            pokemon.Ability = updatedPokemon.Ability;
-            pokemon.Type = updatedPokemon.Type;
-            pokemon.Level = updatedPokemon.Level;
-        }
-        return pokemon!;
+        _pokemonCpollection.ReplaceOne(pokemon => pokemon.ID == id, updatedPokemon);   
+        return updatedPokemon;
     }
 
     public bool DeletePokemon(string id)
     {
-        var pokemon = PokemonList.FirstOrDefault(pokemon => pokemon.ID == id);
-        if (pokemon != null)
-        {
-            PokemonList.Remove(pokemon);
-            return true;
-        }
-        return false;
+        return _pokemonCpollection.DeleteOne(pokemon => pokemon.ID == id).DeletedCount > 0;
     }
 
     public Pokemon GetPokemonByName(string name)
     {
-        return PokemonList.FirstOrDefault(pokemon => pokemon.Name == name)!;
+        return _pokemonCpollection.Find(pokemon => pokemon.Name == name).FirstOrDefault();
     }
 }

@@ -32,3 +32,9 @@ D:\Designs\DotNetClassProjects\pokemonder\obj\Debug\net8.0\refint\pokemonder.dll
 D:\Designs\DotNetClassProjects\pokemonder\obj\Debug\net8.0\pokemonder.pdb
 D:\Designs\DotNetClassProjects\pokemonder\obj\Debug\net8.0\pokemonder.genruntimeconfig.cache
 D:\Designs\DotNetClassProjects\pokemonder\obj\Debug\net8.0\ref\pokemonder.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\DnsClient.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\MongoDB.Bson.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\MongoDB.Driver.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\SharpCompress.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\Snappier.dll
+D:\Designs\DotNetClassProjects\pokemonder\bin\Debug\net8.0\ZstdSharp.dll
