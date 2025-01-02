@@ -34,10 +34,9 @@ namespace pokemonder.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddPokemon(Pokemon newPokemon)
+        public async Task<ActionResult> AddPokemon(Pokemon newPokemon)
         {
-            newPokemon = _pokemonService.AddPokemon(newPokemon);
-            return Ok(newPokemon);
+            return Ok(await _pokemonService.AddPokemon(newPokemon));
         }
 
         [HttpPut("{id}")]

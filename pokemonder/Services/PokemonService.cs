@@ -10,35 +10,36 @@ public class PokemonService : IPokemonService
         _pokemonCpollection = database.GetCollection<Pokemon>(configuration["MongoDbSettings:CollectionName"]);
     }
 
-    public List<Pokemon> GetPokemons()
+    public async Task<List<Pokemon>> GetPokemons()
     {
-        return _pokemonCpollection.Find(_ => true).ToList();
+        return await _pokemonCpollection.Find(_ => true).ToListAsync();
     }
 
-    public Pokemon GetPokemon(string id)
+    public async Task<Pokemon> GetPokemon(string id)
     {
-        return _pokemonCpollection.Find(pokemon => pokemon.ID == id).FirstOrDefault();
+        return await _pokemonCpollection.Find(pokemon => pokemon.ID == id).FirstOrDefaultAsync();
     }
 
-    public Pokemon AddPokemon(Pokemon newPokemon)
+    public async Task<Pokemon> AddPokemon(Pokemon newPokemon)
     {
-        _pokemonCpollection.InsertOne(newPokemon);
+        await _pokemonCpollection.InsertOneAsync(newPokemon);
         return newPokemon;
     }
 
-    public Pokemon UpdatePokemon(string id, Pokemon updatedPokemon)
+    public async Task<Pokemon> UpdatePokemon(string id, Pokemon updatedPokemon)
     {
-        _pokemonCpollection.ReplaceOne(pokemon => pokemon.ID == id, updatedPokemon);   
+        await _pokemonCpollection.ReplaceOneAsync(pokemon => pokemon.ID == id, updatedPokemon);   
         return updatedPokemon;
     }
 
-    public bool DeletePokemon(string id)
+    public async Task<bool> DeletePokemon(string id)
     {
-        return _pokemonCpollection.DeleteOne(pokemon => pokemon.ID == id).DeletedCount > 0;
+        var result = await _pokemonCpollection.DeleteOneAsync(pokemon => pokemon.ID == id);
+        return result.DeletedCount > 0;
     }
 
-    public Pokemon GetPokemonByName(string name)
+    public async Task<Pokemon> GetPokemonByName(string name)
     {
-        return _pokemonCpollection.Find(pokemon => pokemon.Name == name).FirstOrDefault();
+        return await _pokemonCpollection.Find(pokemon => pokemon.Name == name).FirstOrDefaultAsync();
     }
 }
