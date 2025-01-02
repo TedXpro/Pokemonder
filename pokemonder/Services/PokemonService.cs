@@ -9,47 +9,6 @@ public class PokemonService : IPokemonService
         var database = client.GetDatabase(configuration["MongoDbSettings:DatabaseName"]);
         _pokemonCpollection = database.GetCollection<Pokemon>(configuration["MongoDbSettings:CollectionName"]);
     }
-    private static List<Pokemon> PokemonList = [
-            new() {
-                ID = "0001",
-                Name = "Bulbasaur",
-                Ability = "Overgrow",
-                Type = "Grass/Poison",
-                Level = "5"
-            },
-            new ()
-            {
-                ID = "0002",
-                Name = "Charmander",
-                Ability = "Blaze",
-                Type = "Fire",
-                Level = "5"
-            },
-            new ()
-            {
-                ID = "0003",
-                Name = "Squirtle",
-                Ability = "Torrent",
-                Type = "Water",
-                Level = "5"
-            },
-            new ()
-            {
-                ID = "0004",
-                Name = "Pikachu",
-                Ability = "Static",
-                Type = "Electric",
-                Level = "7"
-            },
-              new ()
-            {
-                ID = "0005",
-                Name = "Eevee",
-                Ability = "Run Away",
-                Type = "Normal",
-                Level = "10"
-            }
-        ];
 
     public List<Pokemon> GetPokemons()
     {
