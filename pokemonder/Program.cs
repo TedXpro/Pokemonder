@@ -1,4 +1,4 @@
-using pokemonder.Models;
+using pokemonder.Services;
 //using pokemonder.Controllers; // Your Controllers namespace - Not strictly needed in Program.cs
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +10,11 @@ builder.Services.AddControllers(); // Important for controllers
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddSingleton // there can only be one instance of this.
-// AddScoped to work when there is a new request every time
-// AddTransient for everytime an object is created.
-builder.Services.AddScoped<IPokemonService, PokemonService>(); // will work everytime a new http request is made!
-
+builder.Services.AddScoped<IPokemonService, PokemonService>();
+/* Also possible to use AddTransient or AddSingleton
+builder.Services.AddTransient<IPokemonService, PokemonService>();
+builder.Services.AddSingleton<IPokemonService, PokemonService>();
+ */
 
 // If you are using Entity Framework Core, uncomment the following:
 // builder.Services.AddDbContext<YourDbContext>(options =>
