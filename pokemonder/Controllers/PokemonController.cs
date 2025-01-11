@@ -19,11 +19,16 @@ namespace pokemonder.Controllers
         {
             try
             {
-                return Ok(await _pokemonService?.GetPokemons()!);
+                var pokemons = await _pokemonService?.GetPokemons()!;
+                if (pokemons == null)
+                {
+                    throw new Exception("There are No Pokemons saved in the database!");
+                }
+                return Ok(pokemons);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return NotFound("There are No Pokemons Saved in the database");
+                return NotFound(e.Message);
             }
         }
 
@@ -32,11 +37,16 @@ namespace pokemonder.Controllers
         {
             try
             {
-                return Ok(await _pokemonService?.GetPokemon(id)!);
+                var pokemon = await _pokemonService?.GetPokemon(id)!;
+                if (pokemon != null)
+                {
+                    return Ok(pokemon);
+                }
+                throw new Exception($"There is no Pokemon with id => {id}");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return NotFound($"There is no Pokemon with id => {id}");
+                return NotFound(e.Message);
             }
         }
 
@@ -49,55 +59,62 @@ namespace pokemonder.Controllers
                 {
                     return Ok("Pokemon Added Successfully");
                 }
-                else
-                {
-                    return BadRequest("Failed to Add Pokemon");
-                }
+                throw new Exception("Failed to Add Pokemon");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest("Failed to Add Pokemon");
+                return BadRequest(e.Message);
             }
         }
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePokemon(string id, Pokemon currPokemon)
         {
-            try{
-                if(await _pokemonService?.UpdatePokemon(id, currPokemon)! == true){
+            try
+            {
+                if (await _pokemonService?.UpdatePokemon(id, currPokemon)! == true)
+                {
                     return Ok("Pokemon Updated Successfully");
-                } else {
-                    return BadRequest("Failed to Update Pokemon");
                 }
-            } catch(Exception){
-                return BadRequest("Failed to Update Pokemon");
+                throw new Exception($"No Pokemon with id => {id} found to Update");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeletePokemon(string id){
-            try{
-                if(await _pokemonService?.DeletePokemon(id)! == true){
+        public async Task<ActionResult> DeletePokemon(string id)
+        {
+            try
+            {
+                if (await _pokemonService?.DeletePokemon(id)! == true)
+                {
                     return Ok("Pokemon Deleted Successfully");
-                } else{
-                    return BadRequest("Failed to Delete Pokemon");
                 }
-            }catch(Exception){
-                return BadRequest("Failed to Delete Pokemon");
+                throw new Exception($"No Pokemon with id => {id} found to Delete");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
         [HttpGet("name/{name}")] // [HttpGet("{name}")] is also possible! its to avoid confilcts with the other Get request namely GetPokemonById   
-        public async Task<ActionResult> GetPokemonByName(string name){
-            try{
-                if(await _pokemonService?.GetPokemonByName(name)! != null){
-                    return Ok(await _pokemonService?.GetPokemonByName(name)!);
-                } else {
-                    return NotFound($"There is no Pokemon with name => {name}");
+        public async Task<ActionResult> GetPokemonByName(string name)
+        {
+            try
+            {
+                var pokemon = await _pokemonService?.GetPokemonByName(name)!;
+                if (pokemon != null)
+                {
+                    return Ok(pokemon);
                 }
-                
+                throw new Exception($"There is no Pokemon with name => {name}");
             }
-            catch(Exception){
-                return NotFound($"There is no Pokemon with name => {name}");
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
             }
         }
     }
