@@ -59,7 +59,7 @@ namespace pokemonder.Controllers
                 {
                     return Ok("Pokemon Added Successfully");
                 }
-                throw new Exception("Failed to Add Pokemon");
+                throw new Exception("Failed to Add Pokemon!");
             }
             catch (Exception e)
             {
@@ -75,7 +75,7 @@ namespace pokemonder.Controllers
                 {
                     return Ok("Pokemon Updated Successfully");
                 }
-                throw new Exception($"No Pokemon with id => {id} found to Update");
+                throw new Exception($"No Pokemon with id => {id} found to Update!");
             }
             catch (Exception e)
             {
@@ -92,7 +92,7 @@ namespace pokemonder.Controllers
                 {
                     return Ok("Pokemon Deleted Successfully");
                 }
-                throw new Exception($"No Pokemon with id => {id} found to Delete");
+                throw new Exception($"No Pokemon with id => {id} found to Delete!");
             }
             catch (Exception e)
             {
