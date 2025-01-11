@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pokemonder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e50b291dfbe35b58c6ccad12f4705d5c9cfbf834")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d0658bd876361814cdef7b7bdf4cf391b17fde8")]
 [assembly: System.Reflection.AssemblyProductAttribute("pokemonder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pokemonder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

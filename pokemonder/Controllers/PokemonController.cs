@@ -79,7 +79,7 @@ namespace pokemonder.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
         }
 
@@ -96,7 +96,7 @@ namespace pokemonder.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
         }
 
